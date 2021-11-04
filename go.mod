@@ -259,11 +259,10 @@ require (
 
 // additional Cortex or upstream required replaces
 replace (
-	github.com/Azure/azure-pipeline-go => github.com/Azure/azure-pipeline-go v0.2.2
-	github.com/Azure/azure-storage-blob-go => github.com/Azure/azure-storage-blob-go v0.8.0
 	github.com/bradfitz/gomemcache => github.com/themihai/gomemcache v0.0.0-20180902122335-24332e2d58ab
 	github.com/gocql/gocql => github.com/grafana/gocql v0.0.0-20200605141915-ba5dc39ece85
 	github.com/prometheus/common => github.com/prometheus/common v0.30.0
+	github.com/thanos-io/thanos v0.22.0 => github.com/thanos-io/thanos v0.19.1-0.20210923155558-c15594a03c45
 	k8s.io/api => k8s.io/api v0.20.4
 	k8s.io/client-go => k8s.io/client-go v0.20.4
 )
