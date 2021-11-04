@@ -8,12 +8,12 @@ import (
 	"github.com/cortexproject/cortex/pkg/cortex"
 	cortex_frontend "github.com/cortexproject/cortex/pkg/frontend"
 	cortex_frontend_v1pb "github.com/cortexproject/cortex/pkg/frontend/v1/frontendv1pb"
-	"github.com/cortexproject/cortex/pkg/ring"
 	"github.com/cortexproject/cortex/pkg/util/log"
 	"github.com/go-kit/log/level"
 	"github.com/grafana/dskit/kv/codec"
 	"github.com/grafana/dskit/kv/memberlist"
 	"github.com/grafana/dskit/modules"
+	"github.com/grafana/dskit/ring"
 	"github.com/grafana/dskit/services"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/thanos-io/thanos/pkg/discovery/dns"
@@ -83,7 +83,7 @@ func (t *App) initRing() (services.Service, error) {
 	}
 	t.ring = ring
 
-	prometheus.MustRegister(t.ring)
+	//prometheus.MustRegister(t.ring)
 	t.Server.HTTP.Handle("/ingester/ring", t.ring)
 
 	return t.ring, nil
@@ -108,7 +108,7 @@ func (t *App) initDistributor() (services.Service, error) {
 	t.distributor = distributor
 
 	if distributor.DistributorRing != nil {
-		prometheus.MustRegister(distributor.DistributorRing)
+		//prometheus.MustRegister(distributor.DistributorRing)
 		t.Server.HTTP.Handle("/distributor/ring", distributor.DistributorRing)
 	}
 
@@ -228,7 +228,7 @@ func (t *App) initCompactor() (services.Service, error) {
 	t.compactor = compactor
 
 	if t.compactor.Ring != nil {
-		prometheus.MustRegister(t.compactor.Ring)
+		//prometheus.MustRegister(t.compactor.Ring)
 		t.Server.HTTP.Handle("/compactor/ring", t.compactor.Ring)
 	}
 
