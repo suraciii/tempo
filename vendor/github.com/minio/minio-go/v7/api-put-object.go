@@ -229,25 +229,25 @@ func (c Client) putObjectCommon(ctx context.Context, bucketName, objectName stri
 		return c.putObject(ctx, bucketName, objectName, reader, size, opts)
 	}
 
-	partSize := opts.PartSize
-	if opts.PartSize == 0 {
-		partSize = minPartSize
-	}
+	// partSize := opts.PartSize
+	// if opts.PartSize == 0 {
+	// 	partSize = minPartSize
+	// }
 
-	if c.overrideSignerType.IsV2() {
-		if size >= 0 && size < int64(partSize) || opts.DisableMultipart {
-			return c.putObject(ctx, bucketName, objectName, reader, size, opts)
-		}
-		return c.putObjectMultipart(ctx, bucketName, objectName, reader, size, opts)
-	}
+	// if c.overrideSignerType.IsV2() {
+	// 	if size >= 0 && size < int64(partSize) || opts.DisableMultipart {
+	// 		return c.putObject(ctx, bucketName, objectName, reader, size, opts)
+	// 	}
+	// 	return c.putObjectMultipart(ctx, bucketName, objectName, reader, size, opts)
+	// }
 
-	if size < 0 {
-		return c.putObjectMultipartStreamNoLength(ctx, bucketName, objectName, reader, opts)
-	}
+	// if size < 0 {
+	// 	return c.putObjectMultipartStreamNoLength(ctx, bucketName, objectName, reader, opts)
+	// }
 
-	if size < int64(partSize) || opts.DisableMultipart {
-		return c.putObject(ctx, bucketName, objectName, reader, size, opts)
-	}
+	// if size < int64(partSize) || opts.DisableMultipart {
+	// 	return c.putObject(ctx, bucketName, objectName, reader, size, opts)
+	// }
 
 	return c.putObjectMultipartStream(ctx, bucketName, objectName, reader, size, opts)
 }

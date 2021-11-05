@@ -83,10 +83,10 @@ func optimalPartInfo(objectSize int64, configuredPartSize uint64) (totalPartsCou
 
 	var partSizeFlt float64
 	if configuredPartSize > 0 {
-		if int64(configuredPartSize) > objectSize {
-			err = errEntityTooLarge(int64(configuredPartSize), objectSize, "", "")
-			return
-		}
+		// if int64(configuredPartSize) > objectSize {
+		// 	err = errEntityTooLarge(int64(configuredPartSize), objectSize, "", "")
+		// 	return
+		// }
 
 		if !unknownSize {
 			if objectSize > (int64(configuredPartSize) * maxPartsCount) {
