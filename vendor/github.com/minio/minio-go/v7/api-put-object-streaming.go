@@ -441,7 +441,7 @@ func (c Client) putObjectDo(ctx context.Context, bucketName, objectName string, 
 	}
 	// Set headers.
 	customHeader := opts.Header()
-	fmt.Println(customHeader.Get("Content-Type"))
+	fmt.Println(customHeader)
 
 	// Populate request metadata.
 	reqMetadata := requestMetadata{

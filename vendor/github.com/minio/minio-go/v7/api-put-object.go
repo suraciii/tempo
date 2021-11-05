@@ -235,7 +235,9 @@ func (c Client) putObjectCommon(ctx context.Context, bucketName, objectName stri
 	}
 
 	fmt.Println(partSize)
-	return c.putObject(ctx, bucketName, objectName, reader, size, opts)
+	return c.putObjectMultipartStream(ctx, bucketName, objectName, reader, size, opts)
+	// return c.putObjectMultipartStreamNoLength(ctx, bucketName, objectName, reader, opts)
+	// return c.putObject(ctx, bucketName, objectName, reader, size, opts)
 
 	// if c.overrideSignerType.IsV2() {
 	// 	if size >= 0 && size < int64(partSize) || opts.DisableMultipart {
