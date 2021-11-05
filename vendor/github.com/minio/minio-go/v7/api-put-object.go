@@ -234,22 +234,25 @@ func (c Client) putObjectCommon(ctx context.Context, bucketName, objectName stri
 		partSize = minPartSize
 	}
 
-	if c.overrideSignerType.IsV2() {
-		if size >= 0 && size < int64(partSize) || opts.DisableMultipart {
-			return c.putObject(ctx, bucketName, objectName, reader, size, opts)
-		}
-		return c.putObjectMultipart(ctx, bucketName, objectName, reader, size, opts)
-	}
+	fmt.Println(partSize)
+	return c.putObject(ctx, bucketName, objectName, reader, size, opts)
 
-	if size < 0 {
-		return c.putObjectMultipartStreamNoLength(ctx, bucketName, objectName, reader, opts)
-	}
+	// if c.overrideSignerType.IsV2() {
+	// 	if size >= 0 && size < int64(partSize) || opts.DisableMultipart {
+	// 		return c.putObject(ctx, bucketName, objectName, reader, size, opts)
+	// 	}
+	// 	return c.putObjectMultipart(ctx, bucketName, objectName, reader, size, opts)
+	// }
 
-	if size < int64(partSize) || opts.DisableMultipart {
-		return c.putObject(ctx, bucketName, objectName, reader, size, opts)
-	}
+	// if size < 0 {
+	// 	return c.putObjectMultipartStreamNoLength(ctx, bucketName, objectName, reader, opts)
+	// }
 
-	return c.putObjectMultipartStream(ctx, bucketName, objectName, reader, size, opts)
+	// if size < int64(partSize) || opts.DisableMultipart {
+	// 	return c.putObject(ctx, bucketName, objectName, reader, size, opts)
+	// }
+
+	// return c.putObjectMultipartStream(ctx, bucketName, objectName, reader, size, opts)
 }
 
 func (c Client) putObjectMultipartStreamNoLength(ctx context.Context, bucketName, objectName string, reader io.Reader, opts PutObjectOptions) (info UploadInfo, err error) {

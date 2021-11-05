@@ -425,6 +425,7 @@ func (c Client) putObject(ctx context.Context, bucketName, objectName string, re
 
 	// This function does not calculate sha256 and md5sum for payload.
 	// Execute put object.
+	fmt.Println("fefore putObjectDo")
 	return c.putObjectDo(ctx, bucketName, objectName, readSeeker, md5Base64, "", size, opts)
 }
 
@@ -440,6 +441,7 @@ func (c Client) putObjectDo(ctx context.Context, bucketName, objectName string, 
 	}
 	// Set headers.
 	customHeader := opts.Header()
+	fmt.Println(customHeader.Get("Content-Type"))
 
 	// Populate request metadata.
 	reqMetadata := requestMetadata{
@@ -462,12 +464,15 @@ func (c Client) putObjectDo(ctx context.Context, bucketName, objectName string, 
 
 	// Execute PUT an objectName.
 	resp, err := c.executeMethod(ctx, http.MethodPut, reqMetadata)
+	fmt.Println(resp.Header.Get("request_id"))
+	fmt.Println(resp.Header.Get("x-amz-request-id"))
 	defer closeResponse(resp)
 	if err != nil {
 		return UploadInfo{}, err
 	}
 	if resp != nil {
 		if resp.StatusCode != http.StatusOK {
+			fmt.Println(resp.Header)
 			return UploadInfo{}, httpRespToErrorResponse(resp, bucketName, objectName)
 		}
 	}
